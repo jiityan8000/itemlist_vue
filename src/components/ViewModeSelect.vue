@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 button {
   &.active {
     background: #000;

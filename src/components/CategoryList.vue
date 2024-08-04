@@ -8,7 +8,7 @@
 export default {};
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .my-button {
   display: inline-block;
   padding: 4px 16px;
