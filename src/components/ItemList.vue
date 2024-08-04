@@ -1,0 +1,56 @@
+<template>
+  <ul :class="viewMode">
+    <li v-for="item in itemList" :key="item.name">
+      <a :href="item.url">
+        <div class="item_img"><img src="https://placehold.jp/500x500.png" :alt="item.name" /></div>
+        <p class="item_name">{{ item.name }}</p>
+      </a>
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  props: {
+    itemList: {
+      type: Array,
+      required: true
+    },
+    viewMode: {
+      type: String,
+      required: true
+    }
+  }
+};
+</script>
+
+<style scoped>
+ul {
+  display: grid;
+  padding: 0;
+  gap: 20px;
+
+  &.grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &.list {
+    li {
+      a {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+      }
+    }
+  }
+
+  li {
+    list-style: none;
+
+    .item_img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+</style>
