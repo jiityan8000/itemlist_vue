@@ -10,9 +10,9 @@
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import ItemList from '../components/ItemList.vue';
-import ItemFilters from '../components/ItemFilters.vue';
-import ViewModeSelect from '../components/ViewModeSelect.vue';
+import ItemList from '@/components/ItemList.vue';
+import ItemFilters from '@/components/ItemFilters.vue';
+import ViewModeSelect from '@/components/ViewModeSelect.vue';
 
 export default {
   components: {

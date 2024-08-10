@@ -1,22 +1,11 @@
-import { createApp } from 'vue'
-import './assets/style/reboot.css'
-import { createRouter, createWebHistory } from 'vue-router';
-import App from './App.vue'
-import ItemListPage from './pages/ItemListPage.vue';
-import ItemDetailPage from './pages/ItemDetailPage.vue';
-import CategoryList from './components/CategoryList.vue'
+import { createApp } from 'vue';
+import '@/assets/style/bootstrap-reboot.css'
+import ItemListPage from '@/components/pages/ItemListPage.vue';
+import ItemDetailPage from '@/components/pages/ItemDetailPage.vue';
 
-const routes = [
-  { path: '/', component: ItemListPage },
-  { path: '/detail', component: ItemDetailPage }
-];
+const app = createApp({});
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+app.component("ItemListPage", ItemListPage);
+app.component("ItemDetailPage", ItemDetailPage);
 
-const app = createApp(App);
-app.use(router);
-app.component("CategoryList", CategoryList);
 app.mount('#app');
