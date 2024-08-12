@@ -9,9 +9,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import type { Item, Filters } from '@/types/common'
 
 export default {
   props: {
@@ -25,14 +26,14 @@ export default {
     },
   },
   setup(props) {
-    const itemList = ref([]); // 商品一覧データ
-    const viewMode = ref(props.defaultViewMode); // 表示モード
-    const filters = ref({
+    const itemList = ref<Item[]>([]); // 商品一覧データ
+    const viewMode = ref<string>(props.defaultViewMode); // 表示モード
+    const filters = ref<Filters>({
       limit: 10,
       category: '',
       artist: '',
       group: '',
-      stores: []
+      stores: [],
     }); // 絞り込み
 
     // 商品取得
@@ -47,20 +48,20 @@ export default {
             gr: filters.value.group || undefined,
           },
         });
-        itemList.value = response.data.results;
+        itemList.value = response.data.results as Item[];
       } catch (error) {
         console.error('Failed to fetch item list:', error);
       }
     };
 
     // 絞り込みを更新
-    const updateFilters = (newFilters) => {
+    const updateFilters = (newFilters: typeof filters.value) => {
       filters.value = newFilters;
       fetchItemList();
     };
 
     // 表示モードを更新
-    const updateViewMode = (newViewMode) => {
+    const updateViewMode = (newViewMode: string) => {
       viewMode.value = newViewMode;
     };
 

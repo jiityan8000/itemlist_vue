@@ -9,11 +9,13 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
+import type { Item } from '@/types/common'
+
 export default {
   props: {
     itemList: {
-      type: Array,
+      type: Array as () => Item[],
       required: true
     },
     viewMode: {

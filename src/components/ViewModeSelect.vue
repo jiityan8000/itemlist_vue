@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     viewMode: {
@@ -14,7 +14,7 @@ export default {
     }
   },
   methods: {
-    setViewMode(mode) {
+    setViewMode(mode: string) {
       this.$emit('update:viewMode', mode);
     }
   }

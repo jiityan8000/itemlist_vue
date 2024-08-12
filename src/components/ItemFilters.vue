@@ -33,31 +33,33 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { Filters, Category, Artist, Month, Store } from '@/types/common'
+
 export default {
   props: {
     limitList: {
-      type: Array,
+      type: Array as () => number[],
       required: true
     },
     categoryList: {
-      type: Array,
+      type: Array as () => Category[],
       required: true
     },
     artistList: {
-      type: Array,
+      type: Array as () => Artist[],
       required: true
     },
     storeList: {
-      type: Array,
+      type: Array as () => Store[],
       required: true
     },
     monthList: {
-      type: Array,
+      type: Array as () => Month[],
       required: true
     },
     filters: {
-      type: Object,
+      type: Object as () => Filters,
       required: true,
     }
   },
