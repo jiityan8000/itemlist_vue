@@ -1,7 +1,7 @@
 <template>
   <div class="itemListPage">
     <h1>商品一覧</h1>
-    <ItemFilters :limitList="limitList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
+    <ItemFilters :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
     <ViewModeSelect :viewMode="viewMode" @update:viewMode="updateViewMode" />
     <ItemList :itemList="itemList" :viewMode="viewMode" />
   </div>
@@ -20,47 +20,39 @@ export default {
     ViewModeSelect,
     ItemList,
   },
-  setup() {
+  props: {
+    endpoint: {
+      type: String,
+      required: true
+    },
+    defaultViewMode: {
+      type: String,
+      required: true
+    },
+    limitList: {
+      type: Array,
+      required: true
+    },
+    categoryList: {
+      type: Array,
+      required: true
+    },
+    artistList: {
+      type: Array,
+      required: true
+    },
+    monthList: {
+      type: Array,
+      required: true
+    },
+    storeList: {
+      type: Array,
+      required: true
+    },
+  },
+  setup(props) {
     const itemList = ref([]);
-    const endpoint = 'https://pokeapi.co/api/v2/pokemon/';
-    const viewMode = ref('grid');
-    const limitList = ref([10, 20, 30]);
-    const monthList = ref([
-      {
-        name: "2024/08",
-        value: "00001",
-      },
-      {
-        name: "2024/09",
-        value: "00002",
-      },
-      {
-        name: "2024/10",
-        value: "00003",
-      },
-    ]);
-    const storeList = ref([
-      {
-        name: "EC",
-        value: "ec",
-      },
-      {
-        name: "TOKYO",
-        value: "tokyo",
-      },
-      {
-        name: "NAGOYA",
-        value: "nagoya",
-      },
-      {
-        name: "OSAKA",
-        value: "osaka",
-      },
-      {
-        name: "FUKUOKA",
-        value: "fukuoka",
-      },
-    ]);
+    const viewMode = ref(props.defaultViewMode);
     const filters = ref({
       limit: 10,
       category: '',
@@ -72,7 +64,7 @@ export default {
     // 商品取得
     const fetchItemList = async () => {
       try {
-        const response = await axios.get(endpoint, {
+        const response = await axios.get(props.endpoint, {
           params: {
             limit: filters.value.limit || undefined,
             ct: filters.value.category || undefined,
@@ -104,9 +96,6 @@ export default {
     return {
       itemList,
       viewMode,
-      limitList,
-      storeList,
-      monthList,
       filters,
       fetchItemList,
       updateFilters,

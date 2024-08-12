@@ -1,9 +1,7 @@
 import { createApp } from 'vue';
 import '@/assets/style/bootstrap-reboot.css'
-import ItemListPage from '@/components/pages/ItemListPage.vue';
-import ItemDetailPage from '@/components/pages/ItemDetailPage.vue';
 
-const app = createApp({});
+const app = createApp(window.App ?? {});
 
 // コンポーネントを一括でグローバルに登録
 const componentList = import.meta.glob("./components/**/*.vue", {

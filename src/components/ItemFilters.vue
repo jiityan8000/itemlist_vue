@@ -8,14 +8,13 @@
     <label for="category">カテゴリ:</label>
     <select id="category" v-model="filters.category" @change="updateFilters">
       <option value="">すべて</option>
-      <option value="photo">写真</option>
-      <option value="goods">グッズ</option>
+      <option v-for="category in categoryList" :key="category.value" :value="category.value">{{ category.name }}</option>
     </select>
 
     <label for="artist">アーティスト:</label>
     <select id="artist" v-model="filters.artist" @change="updateFilters">
       <option value="">すべて</option>
-      <option value="tokio">Tokio</option>
+      <option v-for="artist in artistList" :key="artist.value" :value="artist.value">{{ artist.name }}</option>
     </select>
 
     <label for="release-date">発売月:</label>
@@ -38,6 +37,14 @@
 export default {
   props: {
     limitList: {
+      type: Array,
+      required: true
+    },
+    categoryList: {
+      type: Array,
+      required: true
+    },
+    artistList: {
       type: Array,
       required: true
     },
