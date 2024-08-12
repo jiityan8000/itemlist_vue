@@ -79,9 +79,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.itemListPage {
-  max-width: 1000px;
-  padding: 20px;
-}
-</style>
+<style lang="scss" scoped></style>

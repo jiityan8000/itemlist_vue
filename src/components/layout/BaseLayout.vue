@@ -7,8 +7,11 @@
 </template>
 <style lang="scss">
 .BaseLayout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100dvh;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }
 </style>
