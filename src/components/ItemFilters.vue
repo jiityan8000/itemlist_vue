@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (min-width: 768px) {
   .isSP {
     display: none;
