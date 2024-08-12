@@ -13,11 +13,15 @@ export default {
       required: true
     }
   },
-  methods: {
-    setViewMode(mode: string) {
-      this.$emit('update:viewMode', mode);
-    }
-  }
+  setup(props, { emit }) {
+    const setViewMode = (mode: string) => {
+      emit('update:viewMode', mode);
+    };
+
+    return {
+      setViewMode,
+    };
+  },
 };
 </script>
 

@@ -1,42 +1,34 @@
 <template>
-  <div>
-    <label for="limit">件数:</label>
-    <select id="limit" v-model="filters.limit" @change="updateFilters">
-      <option v-for="limit in limitList" :key="limit" :value="limit">{{ limit }}</option>
-    </select>
+  <div class="isPC">
+    <FilterForm :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
+  </div>
 
-    <label for="category">カテゴリ:</label>
-    <select id="category" v-model="filters.category" @change="updateFilters">
-      <option value="">すべて</option>
-      <option v-for="category in categoryList" :key="category.value" :value="category.value">{{ category.name }}</option>
-    </select>
-
-    <label for="artist">アーティスト:</label>
-    <select id="artist" v-model="filters.artist" @change="updateFilters">
-      <option value="">すべて</option>
-      <option v-for="artist in artistList" :key="artist.value" :value="artist.value">{{ artist.name }}</option>
-    </select>
-
-    <label for="release-date">発売月:</label>
-    <select id="release-date" v-model="filters.group" @change="updateFilters">
-      <option value="">すべて</option>
-      <option v-for="month in monthList" :key="month.value" :value="month.value">{{ month.name }}</option>
-    </select>
-
-    <div>取り扱い店舗</div>
-    <ul class="storeList">
-      <li v-for="store in storeList" :key="store.value">
-        <input type="checkbox" :id="store.value" :value="store.value" v-model="filters.stores" @change="updateFilters">
-        <label :for="store.value">{{ store.name }}</label>
-      </li>
-    </ul>
+  <div class="isSP">
+    <button @click="openModal">絞り込み</button>
+    <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <div class="modal-header">
+          絞り込み
+        </div>
+        <div class="modal-body">
+          <FilterForm :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
+        </div>
+        <button class="modal-search" @click="closeModal">絞り込む</button>
+      </div>
+      <button class="modal-close" @click="closeModal">×</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { Filters, Category, Artist, Month, Store } from '@/types/common'
+import { ref } from 'vue';
+import type { Filters, Category, Artist, Month, Store } from '@/types/common';
+import FilterForm from '@/components/FilterForm.vue';
 
 export default {
+  components: {
+    FilterForm,
+  },
   props: {
     limitList: {
       type: Array as () => number[],
@@ -63,22 +55,89 @@ export default {
       required: true,
     }
   },
-  methods: {
-    updateFilters() {
-      this.$emit('update:filters', { ...this.filters });
-    }
+  setup(props, { emit }) {
+    const isModalOpen = ref(false);
+
+    const openModal = () => {
+      isModalOpen.value = true;
+    };
+
+    const closeModal = () => {
+      isModalOpen.value = false;
+    };
+
+    const updateFilters = () => {
+      emit('update:filters', { ...props.filters });
+    };
+
+    return {
+      isModalOpen,
+      openModal,
+      closeModal,
+      updateFilters,
+    };
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-.storeList {
-  display: flex;
-  gap: 10px;
-  padding: 0;
-
-  li {
-    list-style: none;
+<style scoped>
+@media screen and (min-width: 768px) {
+  .isSP {
+    display: none;
   }
+}
+
+@media screen and (max-width: 767px) {
+  .isPC {
+    display: none;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  cursor: initial;
+}
+
+.modal-header {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.modal-search {
+  cursor: pointer;
 }
 </style>
