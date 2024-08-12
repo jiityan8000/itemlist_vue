@@ -9,7 +9,13 @@
 </head>
 <body>
   <div id="app">
-    <item-detail-page></item-detail-page>
+    <base-layout>
+      <template #header>HEADER</template>
+      <template #main>
+        <item-detail-page></item-detail-page>
+      </template>
+      <template #footer>FOOTER</template>
+    </base-layout>
   </div>
 </body>
 </html>
