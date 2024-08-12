@@ -1,7 +1,7 @@
 <template>
   <ul :class="viewMode">
     <li v-for="item in itemList" :key="item.name">
-      <a :href="'/detail?cd=' + item.name">
+      <a :href="'/detail/?cd=' + item.name">
         <div class="item_img"><img src="https://placehold.jp/500x500.png" :alt="item.name" /></div>
         <p class="item_name">{{ item.name }}</p>
       </a>
