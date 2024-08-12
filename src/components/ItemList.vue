@@ -33,7 +33,11 @@ ul {
   gap: 20px;
 
   &.grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
   }
 
   &.list {
@@ -42,6 +46,10 @@ ul {
         display: grid;
         grid-template-columns: 100px 1fr;
       }
+    }
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
