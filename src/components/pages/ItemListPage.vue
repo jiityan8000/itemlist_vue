@@ -1,25 +1,19 @@
 <template>
   <div class="itemListPage">
-    <h1>商品一覧</h1>
-    <ItemFilters :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
-    <ViewModeSelect :viewMode="viewMode" @update:viewMode="updateViewMode" />
-    <ItemList :itemList="itemList" :viewMode="viewMode" />
+    <h1>
+      <slot name="title"></slot>
+    </h1>
+    <slot name="item-filters" :filters="filters" :updateFilters="updateFilters"></slot>
+    <slot name="view-mode-select" :viewMode="viewMode" :updateViewMode="updateViewMode"></slot>
+    <slot name="item-list" :itemList="itemList" :viewMode="viewMode"></slot>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import ItemList from '@/components/ItemList.vue';
-import ItemFilters from '@/components/ItemFilters.vue';
-import ViewModeSelect from '@/components/ViewModeSelect.vue';
 
 export default {
-  components: {
-    ItemFilters,
-    ViewModeSelect,
-    ItemList,
-  },
   props: {
     endpoint: {
       type: String,
@@ -29,37 +23,17 @@ export default {
       type: String,
       required: true
     },
-    limitList: {
-      type: Array,
-      required: true
-    },
-    categoryList: {
-      type: Array,
-      required: true
-    },
-    artistList: {
-      type: Array,
-      required: true
-    },
-    monthList: {
-      type: Array,
-      required: true
-    },
-    storeList: {
-      type: Array,
-      required: true
-    },
   },
   setup(props) {
-    const itemList = ref([]);
-    const viewMode = ref(props.defaultViewMode);
+    const itemList = ref([]); // 商品一覧データ
+    const viewMode = ref(props.defaultViewMode); // 表示モード
     const filters = ref({
       limit: 10,
       category: '',
       artist: '',
       group: '',
       stores: []
-    });
+    }); // 絞り込み
 
     // 商品取得
     const fetchItemList = async () => {
