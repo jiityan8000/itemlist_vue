@@ -44,33 +44,16 @@
     <base-layout>
       <template #header>HEADER</template>
       <template #main>
-        <item-list-page
-          :endpoint="ITEM_LIST_ENDPOINT"
-          :default-view-mode="defaultViewMode"
-        >
+        <item-list-page>
           <template #title>商品一覧</template>
-          <template #item-filters="{ filters, updateFilters }">
-            <item-filters
-              :limit-list="limitList"
-              :category-list="categoryList"
-              :artist-list="artistList"
-              :store-list="storeList"
-              :month-list="monthList"
-              :filters="filters" 
-              @update:filters="updateFilters"
-            ></item-filters>
+          <template #item-filters>
+            <item-filters></item-filters>
           </template>
-          <template #view-mode-select="{ viewMode, updateViewMode }">
-            <view-mode-select 
-              :view-mode="viewMode"
-              @update:view-mode="updateViewMode"
-            ></view-mode-select>
+          <template #view-mode-select>
+            <view-mode-select></view-mode-select>
           </template>
-          <template #item-list="{ itemList, viewMode }">
-            <item-list
-              :item-list="itemList"
-              :view-mode="viewMode"
-            ></item-list>
+          <template #item-list>
+            <item-list></item-list>
           </template>
         </item-list-page>
       </template>

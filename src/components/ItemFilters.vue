@@ -1,6 +1,6 @@
 <template>
   <div class="isPC">
-    <FilterForm :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
+    <FilterForm />
   </div>
 
   <div class="isSP">
@@ -11,7 +11,7 @@
           絞り込み
         </div>
         <div class="modal-body">
-          <FilterForm :limitList="limitList" :categoryList="categoryList" :artistList="artistList" :storeList="storeList" :monthList="monthList" :filters="filters" @update:filters="updateFilters" />
+          <FilterForm />
         </div>
         <button class="modal-search" @click="closeModal">絞り込む</button>
       </div>
@@ -22,40 +22,15 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-import type { Filters, Category, Artist, Month, Store } from '@/types/common';
 import FilterForm from '@/components/FilterForm.vue';
+import { useItemStore } from '@/stores/itemStore';
+import { useConfigStore } from '@/stores/configStore';
 
 export default {
   components: {
     FilterForm,
   },
-  props: {
-    limitList: {
-      type: Array as () => number[],
-      required: true
-    },
-    categoryList: {
-      type: Array as () => Category[],
-      required: true
-    },
-    artistList: {
-      type: Array as () => Artist[],
-      required: true
-    },
-    storeList: {
-      type: Array as () => Store[],
-      required: true
-    },
-    monthList: {
-      type: Array as () => Month[],
-      required: true
-    },
-    filters: {
-      type: Object as () => Filters,
-      required: true,
-    }
-  },
-  setup(props, { emit }) {
+  setup() {
     const isModalOpen = ref(false);
 
     const openModal = () => {
@@ -66,15 +41,15 @@ export default {
       isModalOpen.value = false;
     };
 
-    const updateFilters = () => {
-      emit('update:filters', { ...props.filters });
-    };
+    const itemStore = useItemStore();
+    const configStore = useConfigStore();
 
     return {
+      itemStore,
+      configStore,
       isModalOpen,
       openModal,
       closeModal,
-      updateFilters,
     };
   },
 };

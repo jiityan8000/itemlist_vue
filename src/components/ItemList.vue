@@ -1,6 +1,6 @@
 <template>
-  <ul :class="viewMode">
-    <li v-for="item in itemList" :key="item.name">
+  <ul :class="itemStore.viewMode">
+    <li v-for="item in itemStore.itemList" :key="item.name">
       <a :href="'/detail/?cd=' + item.name">
         <div class="item_img"><img src="https://placehold.jp/500x500.png" :alt="item.name" /></div>
         <p class="item_name">{{ item.name }}</p>
@@ -10,19 +10,19 @@
 </template>
 
 <script lang="ts">
-import type { Item } from '@/types/common'
+import { useItemStore } from '@/stores/itemStore';
+import { useConfigStore } from '@/stores/configStore';
 
 export default {
-  props: {
-    itemList: {
-      type: Array as () => Item[],
-      required: true
-    },
-    viewMode: {
-      type: String,
-      required: true
-    }
-  }
+  setup() {
+    const itemStore = useItemStore();
+    const configStore = useConfigStore();
+
+    return {
+      itemStore,
+      configStore,
+    };
+  },
 };
 </script>
 
