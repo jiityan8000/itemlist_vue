@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type {  Category, Artist, Month, Store } from '@/types/common';
+import type {  Category, Artist, Month, Store, Config } from '@/types/common';
 
 export const useConfigStore = defineStore('config', {
   state: () => ({
@@ -12,7 +12,7 @@ export const useConfigStore = defineStore('config', {
     storeList: [] as Store[],
   }),
   actions: {
-    initializeConfig(config: any) {
+    initializeConfig(config: Config) {
       this.ITEM_LIST_ENDPOINT = config.ITEM_LIST_ENDPOINT;
       this.defaultViewMode = config.defaultViewMode;
       this.limitList = config.limitList;

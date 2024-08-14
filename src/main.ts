@@ -1,13 +1,14 @@
 /// <reference types="vite/client" />
-import { Component, createApp, DefineComponent } from 'vue';
+import { createApp, DefineComponent } from 'vue';
 import { createPinia } from 'pinia'
 import { useConfigStore } from '@/stores/configStore';
 import '@/assets/style/bootstrap-reboot.css'
+import type { Config } from '@/types/common';
 
 declare global {
   interface Window {
     App?: {
-      data: () => any;
+      data: () => Config;
     };
   }
 }
