@@ -23,8 +23,6 @@
 <script lang="ts">
 import { ref } from 'vue';
 import FilterForm from '@/components/FilterForm.vue';
-import { useItemStore } from '@/stores/itemStore';
-import { useConfigStore } from '@/stores/configStore';
 
 export default {
   components: {
@@ -41,12 +39,7 @@ export default {
       isModalOpen.value = false;
     };
 
-    const itemStore = useItemStore();
-    const configStore = useConfigStore();
-
     return {
-      itemStore,
-      configStore,
       isModalOpen,
       openModal,
       closeModal,
