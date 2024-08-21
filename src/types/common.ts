@@ -30,3 +30,13 @@ export type Store = {
   name: string;
   value: string;
 }
+
+export type Config = {
+  ITEM_LIST_ENDPOINT: string;
+  defaultViewMode: string;
+  limitList:  number[];
+  categoryList:  Category[];
+  artistList:  Artist[];
+  monthList:  Month[];
+  storeList:  Store[];
+}
