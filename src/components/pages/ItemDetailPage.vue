@@ -8,6 +8,9 @@
       <slot name="price"></slot>
     </p>
     <p>
+      {{ dayjs(saleStartDate).format("YYYY-MM-DD") }}発売
+    </p>
+    <p>
       <slot name="stores"></slot>
     </p>
     <p>
@@ -16,6 +19,22 @@
   </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+import dayjs from 'dayjs'
+
+export default {
+  props: {
+    saleStartDate: {
+      type: String,
+      required: false
+    },
+  },
+  setup() {
+    return {
+      dayjs
+    };
+  }
+};
+</script>
 
 <style lang="scss" scoped></style>
