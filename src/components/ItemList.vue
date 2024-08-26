@@ -1,9 +1,14 @@
 <template>
   <ul :class="itemStore.viewMode">
-    <li v-for="item in itemStore.itemList" :key="item.name">
-      <a :href="'/detail/?cd=' + item.name">
-        <div class="item_img"><img src="https://placehold.jp/500x500.png" :alt="item.name" /></div>
-        <p class="item_name">{{ item.name }}</p>
+    <li v-for="item in itemStore.itemList" :key="item.id">
+      <a :href="'/detail/?cd=' + item.id">
+        <div class="item_img"><img src="https://placehold.jp/500x500.png" :alt="item.title" /></div>
+        <p class="item_name">{{ item.title }}</p>
+        <p class="price">{{ item.price }}</p>
+        <p class="sale_start_date">{{ item.sale_start_date }}</p>
+        <ul class="store_list">
+          <li v-for="store in item.stores">{{ store.name }}</li>
+        </ul>
       </a>
     </li>
   </ul>
