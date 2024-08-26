@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import { onMounted, watchEffect } from 'vue';
-import axios from 'axios';
 import { useItemStore } from '@/stores/itemStore';
 import { useConfigStore } from '@/stores/configStore';
 
@@ -23,16 +22,28 @@ export default {
     // 商品取得
     const fetchItemList = async () => {
       try {
-        const response = await axios.get(configStore.ITEM_LIST_ENDPOINT, {
-          params: {
-            limit: itemStore.filters.limit || undefined,
-            ct: itemStore.filters.category || undefined,
-            gl: itemStore.filters.artist || undefined,
-            list: itemStore.filters.stores || undefined,
-            gr: itemStore.filters.group || undefined,
-          },
+        const params = new URLSearchParams({
+          limit: itemStore.filters.limit?.toString() || '',
+          ct: itemStore.filters.category || '',
+          gl: itemStore.filters.artist || '',
+          gr: itemStore.filters.group || '',
         });
-        itemStore.setItemList(response.data.results);
+
+        // 複数の 'list[]' パラメータを追加
+        itemStore.filters.stores.forEach((store) => {
+          params.append('list[]', store);
+        });
+
+        const response = await fetch(`${configStore.ITEM_LIST_ENDPOINT}?${params}`, {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch item list: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        itemStore.setItemList(data.results);
       } catch (error) {
         console.error('Failed to fetch item list:', error);
       }
