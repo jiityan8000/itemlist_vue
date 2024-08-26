@@ -12,7 +12,36 @@
     <base-layout>
       <template #header>HEADER</template>
       <template #main>
-        <item-detail-page></item-detail-page>
+        <item-detail-page>
+          <template #title>
+            ホロアース アクリルキーホルダー
+          </template>
+          <template #price>
+            各¥600円
+          </template>
+          <template #stores>
+            <store-link-list
+              :store-list="[
+                {
+                  value: 'shibuya',
+                  name: 'SHIBUYA'
+                },
+                {
+                  value: 'osaka',
+                  name: 'OSAKA'
+                }
+              ]"
+            ></store-link-list>
+          </template>
+          <template #description>
+            メタバースプロジェクト「ホロアース」の「チャットスタンプ」イラストを使用した商品です。<br>
+            <br>
+            この商品は継続販売商品です。<br>
+            <br>
+            ※本商品はお品切れとなった場合、追加販売を行う可能性がございます。<br>
+            ※本商品は、告知なく販売を終了する可能性がございます。      
+          </template>
+        </item-detail-page>
       </template>
       <template #footer>FOOTER</template>
     </base-layout>

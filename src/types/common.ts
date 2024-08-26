@@ -1,6 +1,19 @@
+export type ItemListResponse = {
+	count: number;
+	pages: {
+		total: number;
+		current: number;
+	};
+	list: Item[];
+}
+
 export type Item = {
-  name: string;
-  url: string;
+	id: string;
+	title: string;
+	price: string;
+	sale_start_date: string;
+	date: string;
+	stores: Store[];
 }
 
 export type Filters = {
